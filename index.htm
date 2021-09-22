@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Webmeister's Adonis Introduction</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="http://localhost:8080/assets/app.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+</head>
+<body>
+    <div class="container-fliud"><header class="w-full px-8 text-gray-700 bg-white">
+  <div class="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-7xl">
+      <div class="relative flex flex-col md:flex-row">
+          <a href="#_" class="flex items-center mb-5 font-medium text-gray-900 lg:w-auto lg:items-center lg:justify-center md:mb-0">
+              <span class="mx-auto text-xl font-black leading-none text-gray-900 select-none">System<span class="text-indigo-600">.</span></span>
+          </a>
+          <nav class="flex flex-wrap items-center mb-5 text-base md:mb-0 md:pl-8 md:ml-8 md:border-l md:border-gray-200">
+              <a href="#_" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Home</a>
+          </nav>
+      </div>
+
+      <div class="inline-flex items-center ml-5 space-x-6 lg:justify-end">
+          <a href="#" class="text-base font-medium leading-6 text-gray-600 whitespace-no-wrap transition duration-150 ease-in-out hover:text-gray-900">
+              Sign in
+          </a>
+          <a href="#" class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600">
+              Sign up
+          </a>
+      </div>
+  </div>
+</header>
+
+<main id="app">
+  <table class="border-separate border border-green-800">
+    <thead>
+      <tr>
+        <th class="border border-green-600">日期</th>
+        <th class="border border-green-600">時間</th>
+        <th class="border border-green-600">進入空間影像</th>
+        <th class="border border-green-600">離開空間影像</th>
+        <th class="border border-green-600 w-1/6">事件分類</th>
+        <th class="border border-green-600">護理師回報</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="data of myData">
+        <td class="border border-green-600">{{data.timestamp.toString().slice(0,8)}}</td>
+        <td class="border border-green-600">{{data.timestamp.toString().slice(8,14)}}</td>
+        <td class="border border-green-600">
+          <video controls muted plays-inline v-if="data.action.includes('come')">
+            <source :src="data.url" type="video/mp4" />
+          </video>
+        </td>
+        <td class="border border-green-600">
+          <video controls muted plays-inline v-if="data.action.includes('go')">
+            <source :src="data.url" type="video/mp4" />
+          </video>
+        </td>
+        <td rowspan="2" class="border border-green-600" v-if="data.action.includes('come')">
+          {{data.category}}
+        </td>
+        <td rowspan="2" class="border border-green-600" v-if="data.action.includes('come')">
+          病人姓名∶<input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="username" type="text" value="張XX">
+          <button
+            class="h-12 px-6 m-2 text-lg text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800">送出</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</main>
+
+<script>
+
+  let app = new Vue({
+    el: '#app',
+    data: {
+      myData: [
+        {
+          "id": "id_f8:59:71:7a:35:b9_0",
+          "timestamp": 20210917003504,
+          "action": "come_bedroom1",
+          "url": "https://care-plus.s3-ap-northeast-1.amazonaws.com/id_f8:59:71:7a:35:b9/nano_eme_video/2021-09-17/2021-09-17_00:35:04.mp4",
+          "category": "半夜走動"
+        },
+        {
+          "id": "id_f8:59:71:7a:35:b9_0",
+          "timestamp": 20210917003509,
+          "action": "go_bedroom0",
+          "url": "https://care-plus.s3-ap-northeast-1.amazonaws.com/id_f8:59:71:7a:35:b9/nano_eme_video/2021-09-17/2021-09-17_00:35:09.mp4",
+          "category": ""
+        },
+        {
+          "id": "id_f8:59:71:7a:35:b9_0",
+          "timestamp": 20210917013225,
+          "action": "come_bedroom0",
+          "url": "https://care-plus.s3-ap-northeast-1.amazonaws.com/id_f8:59:71:7a:35:b9/nano_eme_video/2021-09-17/2021-09-17_01:32:25.mp4",
+          "category": "半夜走動"
+        },
+        {
+          "id": "id_f8:59:71:7a:35:b9_0",
+          "timestamp": 20210917013214,
+          "action": "go_bedroom0",
+          "url": "https://care-plus.s3-ap-northeast-1.amazonaws.com/id_f8:59:71:7a:35:b9/nano_eme_video/2021-09-17/2021-09-17_01:32:14.mp4",
+          "category": ""
+        },
+        {
+          "id": "id_f8:59:71:7a:35:b9_0",
+          "timestamp": 20210917014050,
+          "action": "come_bedroom0",
+          "url": "https://care-plus.s3-ap-northeast-1.amazonaws.com/id_f8:59:71:7a:35:b9/nano_eme_video/2021-09-17/2021-09-17_01:40:49.mp4",
+          "category": ""
+        },
+        {
+          "id": "id_f8:59:71:7a:35:b9_0",
+          "timestamp": 20210917013954,
+          "action": "go_bedroom0",
+          "url": "https://care-plus.s3-ap-northeast-1.amazonaws.com/id_f8:59:71:7a:35:b9/nano_eme_video/2021-09-17/2021-09-17_01:39:54.mp4",
+          "category": ""
+        },
+
+      ]
+    }
+  })
+
+</script>
+    </div>
+
+</body>
+</html>
